@@ -18,7 +18,7 @@ for filename in glob.glob('*.json'):
             if not 'liveChatTextMessageRenderer' in line and not 'liveChatPaidMessageRenderer' in line:
                 continue
             ql = line
-            frac = ("#Chat No.%05d " % count)
+            frac = ("")
             info = ast.literal_eval(ql)
             
             #Case Normal Chat
@@ -36,7 +36,7 @@ for filename in glob.glob('*.json'):
                     continue
                 authorName = info['authorName']['simpleText']
                 time = info['timestampText']['simpleText']
-                frac += "type: NORMALCHAT user: \"" + authorName + "\" time: " + time + "\n- " + content + "\n" 
+                frac +=  authorName + ": "+content + " (time: "+time+")\n" 
 
             
             #Case Super Chat
@@ -60,7 +60,7 @@ for filename in glob.glob('*.json'):
                     authorName = "%anonymous%"
                 time = info['timestampText']['simpleText']
                 purchaseAmout = info['purchaseAmountText']['simpleText']
-                frac += "type: SUPERCHAT user: \"" + authorName + "\" time: " + time + " amount: " + purchaseAmout + "\n- " + content + "\n" 
+                frac += "(SUPER CHAT) From: \"" + authorName + "\" time: " + time + " amount: " + purchaseAmout + "\n- " + content + "\n" 
             result += frac
             count += 1
             

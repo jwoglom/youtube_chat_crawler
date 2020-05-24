@@ -54,6 +54,10 @@ while(1):
         dics = ast.literal_eval(dict_str)
 
         # "https://www.youtube.com/live_chat_replay?continuation=" + continue_url が次のlive_chat_replayのurl
+        print('dics', dics)
+        print('continuations', dics["continuationContents"]["liveChatContinuation"]["continuations"])
+        if "liveChatReplayContinuationData" not in dics["continuationContents"]["liveChatContinuation"]["continuations"][0]:
+            break
         continue_url = dics["continuationContents"]["liveChatContinuation"]["continuations"][0]["liveChatReplayContinuationData"]["continuation"]
         print(continue_url)
         next_url = "https://www.youtube.com/live_chat_replay?continuation=" + continue_url
@@ -84,8 +88,8 @@ while(1):
         continue
     except KeyboardInterrupt as e:
         break
-    except :
-        print("Unexpected error:" + str(sys.exc_info()[0]))
+    #except :
+    #    print("Unexpected error:" + str(sys.exc_info()[0]))
 
 # comment_data.txt にコメントデータを書き込む
 with open(title+".json", mode='w', encoding="utf-8") as f:
